@@ -6524,7 +6524,7 @@ Public Sub Ticketz()
           rtx = Utils.db.Exec(" select * from " & Tabx & " order by numero asc")
           If rtx.Available Then
             Repeat
-              Utils.db.Exec("INSERT INTO " & Tabz & " (caisse, numero, date, client, scheque, mcheque, nmcheque, scarte, mcarte, nmcarte, sespeces, mespeces, scredit, mcredit, mht, mtva, mttc, statut, savoir, scavoir, mavoir, type, vendeur, carte, points, sresto, mresto, sbachat, mbachat, nom, retro) VALUES (&1, &2, &3, &4, &5, &6, &7, &8, &9,&{10}, &{11}, &{12}, &{13}, &{14}, &{15}, &{16}, &{17}, &{18}, &{19}, &{20}, &{21}, &{22}, &{23}, &{24}, &{25}, &{26}, &{27}, &{28}, &{29}, &{30}, &{31})", rtx!caisse, rtx!numero, rtx!date, rtx!client, rtx!scheque, rtx!mcheque, rtx!nmcheque, rtx!scarte, rtx!mcarte, rtx!nmcarte, rtx!sespeces, rtx!mespeces, rtx!scredit, rtx!mcredit, rtx!mht, rtx!mtva, rtx!mttc, rtx!statut, rtx!savoir, rtx!scavoir, rtx!mavoir, rtx!type, rtx!vendeur, rtx!carte, rtx!points, rtx!sresto, rtx!mresto, rtx!sbachat, rtx!mbachat, rtx!nom, rtx!retro)
+              Utils.db.Exec("INSERT INTO " & Tabz & " (caisse, numero, date, client, scheque, mcheque, nmcheque, scarte, mcarte, nmcarte, sespeces, mespeces, scredit, mcredit, mht, mtva, mttc, statut, savoir, scavoir, mavoir, type, vendeur, carte, points, sresto, mresto, sbachat, mbachat, nom, retro, suppr) VALUES (&1, &2, &3, &4, &5, &6, &7, &8, &9,&{10}, &{11}, &{12}, &{13}, &{14}, &{15}, &{16}, &{17}, &{18}, &{19}, &{20}, &{21}, &{22}, &{23}, &{24}, &{25}, &{26}, &{27}, &{28}, &{29}, &{30}, &{31}, &{32})", rtx!caisse, rtx!numero, rtx!date, rtx!client, rtx!scheque, rtx!mcheque, rtx!nmcheque, rtx!scarte, rtx!mcarte, rtx!nmcarte, rtx!sespeces, rtx!mespeces, rtx!scredit, rtx!mcredit, rtx!mht, rtx!mtva, rtx!mttc, rtx!statut, rtx!savoir, rtx!scavoir, rtx!mavoir, rtx!type, rtx!vendeur, rtx!carte, rtx!points, rtx!sresto, rtx!mresto, rtx!sbachat, rtx!mbachat, rtx!nom, rtx!retro, rtx!suppr)
             Until rtx.MoveNext()
           Endif
           rtx = Utils.db.Exec(" select * from " & Tiketx & " order by numero asc , lpad(numlig,2, ' ') asc")
@@ -6662,7 +6662,7 @@ Public Sub Defaut_Ticketxz(sintitule As String, org As Boolean)
     totcaisse = Val(.cpoint(Totcaisse)) + Val(.cpoint(Fdc))
     rTkx = Utils.db.Exec(" select * from " & Tabr & " order by type")
     If rTkx.Available Then Enc = True
-    rTkx = Utils.db.Exec(" select * from " & Tabe & " where statut = &1", 0)
+    rTkx = Utils.db.Exec(" select * from " & Tabe & " where statut = &1 and suppr != 1", 0)
     If rTkx.Available Or If Enc = True Then
       Totnbtck = rTkx.count
       If rTkx.Available Then
